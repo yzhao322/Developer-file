@@ -3,7 +3,6 @@ const fs = require('fs');
 const util = require('util');
 const inquirer = require('inquirer');
 const axios = require('axios');
-const writeFileAsync = util.promisify(fs.writeFile);
 const conversion = convertFactory({
     converterPath: convertFactory.converters.PDF,
   });
@@ -64,13 +63,11 @@ function generateHTML(input,gitinput) {
                         <li class="list-group-item list-group-item-action" style=" background-color: ${input.backgroundcolor}; padding: 30px"><a href="https://maps.google.com/?q=${gitinput.location}">Location</a></li>
                         <li class="list-group-item list-group-item-action" style=" background-color: ${input.backgroundcolor}; padding: 30px"><a href="${gitinput.html_url}">Github profile</a></li>
                         <li class="list-group-item list-group-item-action" style=" background-color: ${input.backgroundcolor}; padding: 30px"><a href="${gitinput.blog}">Blog</a></li>
-                        <li class="list-group-item list-group-item-action" style=" background-color: ${input.backgroundcolor}; padding: 30px"><a href="${gitinput.email}">Email</a></li>
-                        <li class="list-group-item list-group-item-action" style=" background-color: ${input.backgroundcolor}; padding: 30px"><a href="${gitinput.repos_url}">Repos</a></li>
                     </ul>
                 </div>
           
                 <div class="col-12">
-            <p style ="margin-top:30px">${gitinput.bio}</p>
+            <p style ="margin-top:30px"> Bio: ${gitinput.bio}</p>
             <ul>
                 <li>Total public repos: ${gitinput.public_repos}</li>
                 <li>Total followers: ${gitinput.followers}</li>
@@ -92,7 +89,6 @@ async function init() {
         const gitdata = await githubinput(input.Gitname);
         const gitinput = gitdata.data;
         const html = generateHTML(input,gitinput);
-        writeFileAsync('./index.html', html);
         conversion({
             html,
             pdf: { printBackground: true }
