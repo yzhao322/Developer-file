@@ -1,7 +1,5 @@
 # Developer-Profile-Generator
-<video style="width:100%" controls>
-<source src="./ScreenRecording.mp4" type="video/mp4">
-</video>
+<img src="./IMG_3944 2.GIF">
 
 
 * This is a command-line application that will generates a PDF profile from a Github username.
